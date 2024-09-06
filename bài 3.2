@@ -1,0 +1,51 @@
+package org.example;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
+// then press Enter. You can now see whitespace characters in your code.
+public class Main {
+    public static void main(String[] args) {
+        // Press Alt+Enter with your caret at the highlighted text to see how
+        // IntelliJ IDEA suggests fixing it.
+        int[] arr = {5, 1, 9, 10, 16,4, 6, 8, 3};
+        List<int[]> arrMax = new ArrayList<>();
+        List<Integer> startPosition = new ArrayList<>();
+        int maxLength = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int[] flag = new int[arr.length];
+            int k = 0;
+            flag[k++] = arr[i];
+            int sum = arr[i];
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] > flag[k - 1]) {
+                    flag[k++] = arr[j];
+                    sum += arr[j];
+                } else {
+                    break;
+                }
+                if (k > maxLength && sum >100) {
+                    maxLength = k;
+                    arrMax.clear();
+                    startPosition.clear();
+                    arrMax.add(Arrays.copyOf(flag, k));
+                    startPosition.add(i);
+                } else if (k == maxLength && sum >100) {
+                    arrMax.add(Arrays.copyOf(flag, k));
+                    startPosition.add(i);
+                }
+            }
+        }
+        if(arrMax.size()>0) {
+            System.out.println("Cac day con tang dan dai nhat co tong cac phan tu lon hon 100 ( " + maxLength + " phan tu ) va cac vi tri bat dau : ");
+            for (int i = 0; i < arrMax.size(); i++) {
+                System.out.println("Bat dau tu vi tri " + (startPosition.get(i) + 1) + ": " + Arrays.toString(arrMax.get(i)));
+            }
+        }else {
+            System.out.println("Khong co day con nao thoa man yeu cau");
+        }
+    }
+}
