@@ -1,0 +1,270 @@
+package org.example;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
+// then press Enter. You can now see whitespace characters in your code.
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Hay nhap bai tap muon chon : ");
+        while (true) {
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 11:
+                    bai11();
+                    break;
+                case 12:
+                    bai12();
+                    break;
+                case 13:
+                    bai13();
+                    break;
+                case 21:
+                    bai21();
+                    break;
+                case 22:
+                    bai22();
+                    break;
+                case 23:
+                    bai23();
+                    break;
+                case 31:
+                    bai31();
+                    break;
+                case 32:
+                    bai32();
+                    break;
+                case 33:
+                    bai33();
+                    break;
+                default:
+                    break;
+            }
+            if(choice==0){
+                return;
+            }
+        }
+    }
+    public static void bai11(){
+        int[] arr = {5,7,9,10,16};
+        Boolean flag = true;
+        for(int i = 0 ; i < arr.length-1;i++){
+            if(arr[i] >= arr[i+1]){
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            System.out.println("Mang tren tao thanh day tang dan");
+        }else {
+            System.out.println("Mang tren khong tao thanh day tang dan");
+        }
+    }
+    public static void bai12(){
+        int[] arr = {5,-1,9,-10,16};
+        Boolean flag = true;
+        for(int i = 0 ; i < arr.length-1;i++){
+            if(arr[i] >=0 && arr[i+1] >=0 || arr[i] <=0 && arr[i+1] <=0 ){
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            System.out.println("Mang tren tao thanh day dan dau");
+        }else {
+            System.out.println("Mang tren khong tao thanh day dan dau");
+        }
+    }
+    public static void bai13(){
+        int[] arr = {5, 1, 7, 11, 17};
+        Boolean flag = true;
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] <= 1) {
+                flag = false;
+                break;
+            }
+            for (int j = 2; j < arr[i]; j++) {
+                if (arr[i] % j == 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (!flag) break;
+        }
+        if (flag) {
+            System.out.println("Mang tren co tat ca cac phan tu la so nguyen to ");
+        } else {
+            System.out.println("Mang tren khong phai tat ca cac phan tu deu la so nguyen to");
+        }
+    }
+    public static void bai21(){
+        int[] arr = {5,1,9,10,16,4,6,8,3};
+        int[] arrMax = new int[0];
+        int[] flag = new int[arr.length];
+        for(int i = 0 ; i < arr.length;i++){
+            int k = 0;
+            flag[k++] = arr[i];
+            for(int j=i+1 ; j< arr.length;j++){
+                if(arr[j]>flag[k-1]){
+                    flag[k++] = arr[j];
+                }else {break;}
+                if(k>arrMax.length){
+                    arrMax = Arrays.copyOf(flag,k);
+                }
+            }
+        }
+        System.out.println("Day con tang dan dai nhat : " + Arrays.toString(arrMax));
+    }
+    public static void bai22(){
+        int[] arr = {5,1,9,10,16,4,6,8,3};
+        int[] arrMax = new int[0];
+        int[] flag = new int[arr.length];
+        for(int i = 0 ; i < arr.length;i++){
+            int sum = arr[i];
+            int k = 0;
+            flag[k++] = arr[i];
+            for(int j=i+1 ; j< arr.length;j++){
+                sum+=arr[j];
+                if(arr[j]>flag[k-1]){
+                    flag[k++] = arr[j];
+                }else {break;}
+                if(k>arrMax.length&&sum>20){
+                    arrMax = Arrays.copyOf(flag,k);
+                }
+            }
+        }
+        System.out.println("Day con tang dan dai nhat va co tong cac phan tu lon hon 20 : " + Arrays.toString(arrMax));
+    }
+    public static void bai23(){
+        int[] arr = {5,1,9,10,16,4,6,8,3};
+        int[] arrMax = new int[0];
+        int[] flag = new int[arr.length];
+        for(int i = 0 ; i < arr.length;i++){
+            int k = 0;
+            if(arr[i]%2!=0) {continue;}
+            flag[k++] = arr[i];
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] % 2 == 0) {
+                    flag[k++] = arr[j];
+                } else {
+                    break;
+                }
+                if (k > arrMax.length) {
+                    arrMax = Arrays.copyOf(flag, k);
+                }
+            }
+        }
+        System.out.println("Day con dai nhat va co cac phan tu la so chan lien tiep : " + Arrays.toString(arrMax));
+    }
+    public static void bai31(){
+        int[] arr = {5, 3, 7, 8, 4, 6, 8, 3};
+        List<int[]> arrMax = new ArrayList<>();
+        List<Integer> startPosition = new ArrayList<>();
+        int maxLength = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int[] flag = new int[arr.length];
+            int k = 0;
+            flag[k++] = arr[i];
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] > flag[k - 1]) {
+                    flag[k++] = arr[j];
+                } else {
+                    break;
+                }
+                if (k > maxLength) {
+                    maxLength = k;
+                    arrMax.clear();
+                    startPosition.clear();
+                    arrMax.add(Arrays.copyOf(flag, k));
+                    startPosition.add(i);
+                } else if (k == maxLength) {
+                    arrMax.add(Arrays.copyOf(flag, k));
+                    startPosition.add(i);
+                }
+            }
+        }
+        System.out.println("Cac day con tang dan dai nhat ( " + maxLength + " phan tu ) va cac vi tri bat dau : ");
+        for (int i = 0; i < arrMax.size(); i++) {
+            System.out.println("Bat dau tu vi tri " + startPosition.get(i) + ": " + Arrays.toString(arrMax.get(i)));
+        }
+    }
+    public static void bai32(){
+        int[] arr = {5, 1, 9, 10, 16,4, 6, 8, 3};
+        List<int[]> arrMax = new ArrayList<>();
+        List<Integer> startPosition = new ArrayList<>();
+        int maxLength = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int[] flag = new int[arr.length];
+            int k = 0;
+            flag[k++] = arr[i];
+            int sum = arr[i];
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] > flag[k - 1]) {
+                    flag[k++] = arr[j];
+                    sum += arr[j];
+                } else {
+                    break;
+                }
+                if (k > maxLength && sum >100) {
+                    maxLength = k;
+                    arrMax.clear();
+                    startPosition.clear();
+                    arrMax.add(Arrays.copyOf(flag, k));
+                    startPosition.add(i);
+                } else if (k == maxLength && sum >100) {
+                    arrMax.add(Arrays.copyOf(flag, k));
+                    startPosition.add(i);
+                }
+            }
+        }
+        if(arrMax.size()>0) {
+            System.out.println("Cac day con tang dan dai nhat co tong cac phan tu lon hon 100 ( " + maxLength + " phan tu ) va cac vi tri bat dau : ");
+            for (int i = 0; i < arrMax.size(); i++) {
+                System.out.println("Bat dau tu vi tri " + (startPosition.get(i) + 1) + ": " + Arrays.toString(arrMax.get(i)));
+            }
+        }else {
+            System.out.println("Khong co day con nao thoa man yeu cau");
+        }
+    }
+    public static void bai33(){
+        int[] arr = {5, 1, 9, 10, 16,4, 6, 8, 3};
+        List<int[]> arrMax = new ArrayList<>();
+        List<Integer> startPosition = new ArrayList<>();
+        int maxLength = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if(arr[i]%2!=0){continue;}
+            int[] flag = new int[arr.length];
+            int k = 0;
+            flag[k++] = arr[i];
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j]%2==0) {
+                    flag[k++] = arr[j];
+                } else {
+                    break;
+                }
+                if (k > maxLength) {
+                    maxLength = k;
+                    arrMax.clear();
+                    startPosition.clear();
+                    arrMax.add(Arrays.copyOf(flag, k));
+                    startPosition.add(i);
+                } else if (k == maxLength) {
+                    arrMax.add(Arrays.copyOf(flag, k));
+                    startPosition.add(i);
+                }
+            }
+        }
+        if(arrMax.size()>0) {
+            System.out.println("Cac day con dai nhat co tat ca cac phan tu la so chan ( " + maxLength + " phan tu ) va cac vi tri bat dau : ");
+            for (int i = 0; i < arrMax.size(); i++) {
+                System.out.println("Bat dau tu vi tri " + (startPosition.get(i) + 1) + ": " + Arrays.toString(arrMax.get(i)));
+            }
+        }else {
+            System.out.println("Khong co day con nao thoa man yeu cau");
+        }
+    }
+}
