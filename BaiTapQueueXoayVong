@@ -1,0 +1,54 @@
+package org.example;
+
+public class ArrayQueue {
+    private int[] queue;
+    private int front;
+    private int rear;
+    private int size;
+    private int max;
+
+    public ArrayQueue(int max){
+        this.max = max;
+        queue = new int[max];
+        front = 0;
+        rear = -1;
+        size = 0;
+    }
+    public boolean isFull(){
+        return size == max;
+    }
+    public boolean isEmty(){
+        return size == 0;
+    }
+    public void enqueue(int item){
+        if(isFull()){
+            System.out.println("Hang doi day khong the them phan tu");
+            return;
+        }
+        rear = (rear+1)%max;
+        queue[rear] = item;
+        size++;
+        System.out.println("Da them " + item + " vao hang doi.");
+    }
+    public void dequeue(){
+        if(isEmty()){
+            System.out.println("Hang doi rong");
+            return;
+        }
+        int item = queue[front];
+        front = (front+1)%max;
+        size--;
+        System.out.println("da xoa phan tu " + item);
+    }
+    public int peek(){
+        if(isEmty()){
+            System.out.println("Hang doi rong");
+            return -1;
+        }
+        return queue[front];
+    }
+    // lay size
+    public int getSize(){
+        return size;
+    }
+}
